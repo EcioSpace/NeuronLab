@@ -96,8 +96,6 @@ contract NeuronLab is Ownable, ReentrancyGuard {
     IRandomWorker public RANDOM_WORKER;
     IGnenomRarity public GENOM_RARITY;
 
-    address public _minter;
-
     // Initial fee
     function initialFee() public onlyOwner {
         FEE_PER_MATERIAL[ECIO_FEE_TYPE][ONE_STAR_UINT] = 5000000000000000000000; // 5000 ecio
@@ -139,10 +137,6 @@ contract NeuronLab is Ownable, ReentrancyGuard {
     // Setup success rate address
     function setupGenomRarity(IGnenomRarity genomRarityAddress) public onlyOwner {
         GENOM_RARITY = genomRarityAddress;
-    }
-
-    function setupMinter(address minter) public onlyOwner {
-        _minter = minter;
     }
 
     // Setup fee
@@ -297,8 +291,8 @@ contract NeuronLab is Ownable, ReentrancyGuard {
         string memory mainCardStar = splitPartcodeStar(mainCardPartCode);
         uint16 starConverted = convertStarToUint(mainCardStar);
 
-        // send fee to minter
-        (bool sent, )= _minter.call{value: 0.0004 ether}("");
+        // send fee to contract
+        (bool sent, )= address(this).call{value: 0.0004 ether}("");
         require(sent, "Failed to send Ether");
 
         require(
