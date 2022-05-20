@@ -27,212 +27,94 @@ contract SuccessRate is Ownable {
     mapping(uint16 => mapping(uint16 => uint16[])) SWPoolValues;
     mapping(uint16 => mapping(uint16 => uint256[])) SWPoolPercentage;
 
+    function setSWPoolValues(
+        uint16 numberOfStar,
+        uint16 numberOfCard
+    ) internal {
+         for (
+            uint16 p = 0;
+            p < SWPoolPercentage[numberOfStar][numberOfCard].length;
+            p++
+        ) {
+            uint256 qtyItem = (100 * SWPoolPercentage[numberOfStar][numberOfCard][p]) /
+                10000;
+            for (uint16 i = 0; i < qtyItem; i++) {
+                SWPoolValues[numberOfStar][numberOfCard].push(
+                    SWPoolResults[numberOfStar][numberOfCard][p]
+                );
+            }
+        }
+    }
+
     function initial() public onlyOwner {
         //------------------------ STARS TIER PROBABILITY ------------------------------\\
 
-
-
         //------------------ ONE STAR ----------------\\
 
-        //ONE_STAR + ONE_CARD = 50%
+        //ONE_STAR + ONE_CARD = 30%
         SWPoolResults[ONE_STAR][ONE_CARD] = [0, 1];
-        SWPoolPercentage[ONE_STAR][ONE_CARD] = [uint256(5000), uint256(5000)];
-        for (
-            uint16 p = 0;
-            p < SWPoolPercentage[ONE_STAR][ONE_CARD].length;
-            p++
-        ) {
-            uint256 qtyItem = (100 * SWPoolPercentage[ONE_STAR][ONE_CARD][p]) /
-                10000;
-            for (uint16 i = 0; i < qtyItem; i++) {
-                SWPoolValues[ONE_STAR][ONE_CARD].push(
-                    SWPoolResults[ONE_STAR][ONE_CARD][p]
-                );
-            }
-        }
+        SWPoolPercentage[ONE_STAR][ONE_CARD] = [uint256(3000), uint256(7000)];
+        setSWPoolValues(ONE_STAR, ONE_CARD);
 
-        // ONE_STAR + TWO_CARD = 100%
-        SWPoolResults[ONE_STAR][TWO_CARD] = [0];
-        SWPoolPercentage[ONE_STAR][TWO_CARD] = [uint256(10000)];
-        SWPoolValues[ONE_STAR][TWO_CARD] = [SUCCEEDED];
 
+        // ONE_STAR + TWO_CARD = 60%
+        SWPoolResults[ONE_STAR][TWO_CARD] = [0,1];
+        SWPoolPercentage[ONE_STAR][TWO_CARD] = [uint256(6000), uint256(4000)];
+        setSWPoolValues(ONE_STAR, TWO_CARD);
+
+        // ONE_STAR + THREE_CARD = 90%
+        SWPoolResults[ONE_STAR][THREE_CARD] = [0,1];
+        SWPoolPercentage[ONE_STAR][THREE_CARD] = [uint256(9000), uint256(1000)];
+        setSWPoolValues(ONE_STAR, THREE_CARD);
+
+        // ONE_STAR + FOUR_CARD = 100%
+        SWPoolResults[ONE_STAR][FOUR_CARD] = [0];
+        SWPoolPercentage[ONE_STAR][FOUR_CARD] = [uint256(10000)];
+        SWPoolValues[ONE_STAR][FOUR_CARD] = [SUCCEEDED];
 
         //------------------ TWO STAR ----------------\\
 
-        // TWO_STAR + ONE_CARD = 35%
+        // TWO_STAR + ONE_CARD = 40%
         SWPoolResults[TWO_STAR][ONE_CARD] = [0, 1];
-        SWPoolPercentage[TWO_STAR][ONE_CARD] = [uint256(3500), uint256(6500)];
-        for (
-            uint16 p = 0;
-            p < SWPoolPercentage[TWO_STAR][ONE_CARD].length;
-            p++
-        ) {
-            uint256 qtyItem = (100 * SWPoolPercentage[TWO_STAR][ONE_CARD][p]) /
-                10000;
-            for (uint16 i = 0; i < qtyItem; i++) {
-                SWPoolValues[TWO_STAR][ONE_CARD].push(
-                    SWPoolResults[TWO_STAR][ONE_CARD][p]
-                );
-            }
-        }
+        SWPoolPercentage[TWO_STAR][ONE_CARD] = [uint256(4000), uint256(6000)];
+        setSWPoolValues(TWO_STAR, ONE_CARD);
 
-        // TWO_STAR + TWO_CARD = 70%
+        // TWO_STAR + TWO_CARD = 80%
         SWPoolResults[TWO_STAR][TWO_CARD] = [0, 1];
-        SWPoolPercentage[TWO_STAR][TWO_CARD] = [uint256(7000), uint256(3000)];
-        for (
-            uint16 p = 0;
-            p < SWPoolPercentage[TWO_STAR][TWO_CARD].length;
-            p++
-        ) {
-            uint256 qtyItem = (100 * SWPoolPercentage[TWO_STAR][TWO_CARD][p]) /
-                10000;
-            for (uint16 i = 0; i < qtyItem; i++) {
-                SWPoolValues[TWO_STAR][TWO_CARD].push(
-                    SWPoolResults[TWO_STAR][TWO_CARD][p]
-                );
-            }
-        }
+        SWPoolPercentage[TWO_STAR][TWO_CARD] = [uint256(8000), uint256(2000)];
+        setSWPoolValues(TWO_STAR, TWO_CARD);
 
         // TWO_STAR + THREE_CARD = 100%
         SWPoolResults[TWO_STAR][THREE_CARD] = [0];
         SWPoolPercentage[TWO_STAR][THREE_CARD] = [uint256(10000)];
         SWPoolValues[TWO_STAR][THREE_CARD] = [SUCCEEDED];
 
-
         //------------------ THREE STAR ----------------\\
         
-        // THREE_STAR + ONE_CARD = 25%
+        // THREE_STAR + ONE_CARD = 50%
         SWPoolResults[THREE_STAR][ONE_CARD] = [0, 1];
-        SWPoolPercentage[THREE_STAR][ONE_CARD] = [uint256(2500), uint256(7500)];
-        for (
-            uint16 p = 0;
-            p < SWPoolPercentage[THREE_STAR][ONE_CARD].length;
-            p++
-        ) {
-            uint256 qtyItem = (100 * SWPoolPercentage[THREE_STAR][ONE_CARD][p]) /
-                10000;
-            for (uint16 i = 0; i < qtyItem; i++) {
-                SWPoolValues[THREE_STAR][ONE_CARD].push(
-                    SWPoolResults[THREE_STAR][ONE_CARD][p]
-                );
-            }
-        }
+        SWPoolPercentage[THREE_STAR][ONE_CARD] = [uint256(5000), uint256(5000)];
+        setSWPoolValues(THREE_STAR, ONE_CARD);
 
-        // THREE_STAR + TWO_CARD = 50%
+        // THREE_STAR + TWO_CARD = 100%
         SWPoolResults[THREE_STAR][TWO_CARD] = [0, 1];
-        SWPoolPercentage[THREE_STAR][TWO_CARD] = [uint256(5000), uint256(5000)];
-        for (
-            uint16 p = 0;
-            p < SWPoolPercentage[THREE_STAR][TWO_CARD].length;
-            p++
-        ) {
-            uint256 qtyItem = (100 * SWPoolPercentage[THREE_STAR][TWO_CARD][p]) /
-                10000;
-            for (uint16 i = 0; i < qtyItem; i++) {
-                SWPoolValues[THREE_STAR][TWO_CARD].push(
-                    SWPoolResults[THREE_STAR][TWO_CARD][p]
-                );
-            }
-        }
-
-        // THREE_STAR + THREE_CARD = 75%
-        SWPoolResults[THREE_STAR][THREE_CARD] = [0, 1];
-        SWPoolPercentage[THREE_STAR][THREE_CARD] = [uint256(7500), uint256(2500)];
-        for (
-            uint16 p = 0;
-            p < SWPoolPercentage[THREE_STAR][THREE_CARD].length;
-            p++
-        ) {
-            uint256 qtyItem = (100 * SWPoolPercentage[THREE_STAR][THREE_CARD][p]) /
-                10000;
-            for (uint16 i = 0; i < qtyItem; i++) {
-                SWPoolValues[THREE_STAR][THREE_CARD].push(
-                    SWPoolResults[THREE_STAR][THREE_CARD][p]
-                );
-            }
-        }
-
-        // THREE_STAR + FOUR_CARD = 100%
-        SWPoolResults[THREE_STAR][FOUR_CARD] = [0];
-        SWPoolPercentage[THREE_STAR][FOUR_CARD] = [uint256(10000)];
-        SWPoolValues[THREE_STAR][FOUR_CARD] = [SUCCEEDED];
+        SWPoolPercentage[THREE_STAR][TWO_CARD] = [uint256(10000)];
+        SWPoolValues[THREE_STAR][TWO_CARD] = [SUCCEEDED];
 
         //------------------ FOUR STAR ----------------\\
 
-        // FOUR_STAR + ONE_CARD = 20%
+        // FOUR_STAR + ONE_CARD = 60%
         SWPoolResults[FOUR_STAR][ONE_CARD] = [0, 1];
-        SWPoolPercentage[FOUR_STAR][ONE_CARD] = [uint256(2000), uint256(8000)];
-        for (
-            uint16 p = 0;
-            p < SWPoolPercentage[FOUR_STAR][ONE_CARD].length;
-            p++
-        ) {
-            uint256 qtyItem = (100 * SWPoolPercentage[FOUR_STAR][ONE_CARD][p]) /
-                10000;
-            for (uint16 i = 0; i < qtyItem; i++) {
-                SWPoolValues[FOUR_STAR][ONE_CARD].push(
-                    SWPoolResults[FOUR_STAR][ONE_CARD][p]
-                );
-            }
-        }
+        SWPoolPercentage[FOUR_STAR][ONE_CARD] = [uint256(6000), uint256(4000)];
+        setSWPoolValues(FOUR_STAR, ONE_CARD);
+    
 
-        // FOUR_STAR + TWO_CARD = 40%
-        SWPoolResults[FOUR_STAR][TWO_CARD] = [0, 1];
-        SWPoolPercentage[FOUR_STAR][TWO_CARD] = [uint256(4000), uint256(6000)];
-        for (
-            uint16 p = 0;
-            p < SWPoolPercentage[FOUR_STAR][TWO_CARD].length;
-            p++
-        ) {
-            uint256 qtyItem = (100 * SWPoolPercentage[FOUR_STAR][TWO_CARD][p]) /
-                10000;
-            for (uint16 i = 0; i < qtyItem; i++) {
-                SWPoolValues[FOUR_STAR][TWO_CARD].push(
-                    SWPoolResults[FOUR_STAR][TWO_CARD][p]
-                );
-            }
-        }
+        // FOUR_STAR + TWO_CARD = 100%
+        SWPoolResults[FOUR_STAR][TWO_CARD] = [0];
+        SWPoolPercentage[FOUR_STAR][TWO_CARD] = [uint256(10000)];
+        SWPoolValues[FOUR_STAR][TWO_CARD] = [SUCCEEDED];
 
-        // FOUR_STAR + THREE_CARD = 60%
-        SWPoolResults[FOUR_STAR][THREE_CARD] = [0, 1];
-        SWPoolPercentage[FOUR_STAR][THREE_CARD] = [uint256(6000), uint256(4000)];
-        for (
-            uint16 p = 0;
-            p < SWPoolPercentage[FOUR_STAR][THREE_CARD].length;
-            p++
-        ) {
-            uint256 qtyItem = (100 * SWPoolPercentage[FOUR_STAR][THREE_CARD][p]) /
-                10000;
-            for (uint16 i = 0; i < qtyItem; i++) {
-                SWPoolValues[FOUR_STAR][THREE_CARD].push(
-                    SWPoolResults[FOUR_STAR][THREE_CARD][p]
-                );
-            }
-        }
-
-        // FOUR_STAR + FOUR_CARD = 80%
-        SWPoolResults[FOUR_STAR][FOUR_CARD] = [0, 1];
-        SWPoolPercentage[FOUR_STAR][FOUR_CARD] = [uint256(8000), uint256(2000)];
-        for (
-            uint16 p = 0;
-            p < SWPoolPercentage[FOUR_STAR][FOUR_CARD].length;
-            p++
-        ) {
-            uint256 qtyItem = (100 * SWPoolPercentage[FOUR_STAR][FOUR_CARD][p]) /
-                10000;
-            for (uint16 i = 0; i < qtyItem; i++) {
-                SWPoolValues[FOUR_STAR][FOUR_CARD].push(
-                    SWPoolResults[FOUR_STAR][FOUR_CARD][p]
-                );
-            }
-        }
-
-        // FOUR_STAR + FIVE_CARD = 100%
-        SWPoolResults[FOUR_STAR][FIVE_CARD] = [0];
-        SWPoolPercentage[FOUR_STAR][FIVE_CARD] = [uint256(10000)];
-        SWPoolValues[FOUR_STAR][FIVE_CARD] = [SUCCEEDED];
-
-        //-----------------END COMMON BOX RATE --------------------------------
+        //-----------------END UPGRADE RATE --------------------------------
     }
 
     function getSuccessRate(
@@ -244,5 +126,4 @@ contract SuccessRate is Ownable {
             uint16(SWPoolValues[starNum][cardNum].length);
         return SWPoolValues[starNum][cardNum][_modNumber];
     }
-
 }

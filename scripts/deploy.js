@@ -13,13 +13,18 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
-  // We get the contract to deploy
-  const Greeter = await hre.ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  // let contracts = ["ECIONFTCore","EcioSpaceToken","NeuronLab", "SuccessRate", "RandomWorker"];
+  let contracts = ["NeuronLab"];
+  
+  for (let i = 0; i < contracts.length; i++) {
+    const name = contracts[i];
+    const contract = await hre.ethers.getContractFactory(name);
+    const deployedContract = await contract.deploy();
+    await deployedContract.deployed();
+    console.log(name + " Address:", deployedContract.address);
+    console.log("npx hardhat  verify --network testnet " + deployedContract.address + "  --contract contracts/" + name + ".sol:" + name)
+  }
 
-  await greeter.deployed();
-
-  console.log("Greeter deployed to:", greeter.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
