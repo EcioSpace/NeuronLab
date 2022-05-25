@@ -292,8 +292,7 @@ contract NeuronLab is Ownable, ReentrancyGuard {
         uint16 starConverted = convertStarToUint(mainCardStar);
 
         // send fee to contract
-        (bool sent, )= address(this).call{value: 0.0004 ether}("");
-        require(sent, "Failed to send Ether");
+        require(msg.value >= 0.0004 ether, "Failed to send Ether");
 
         require(
             ECIO_TOKEN.balanceOf(msg.sender) >= FEE_PER_MATERIAL[ECIO_FEE_TYPE][starConverted]*tokenIds.length,

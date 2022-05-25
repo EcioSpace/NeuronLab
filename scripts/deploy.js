@@ -14,7 +14,7 @@ async function main() {
   // await hre.run('compile');
 
   // let contracts = ["ECIONFTCore","EcioSpaceToken","NeuronLab", "SuccessRate", "RandomWorker"];
-  let contracts = ["NeuronLab"];
+  let contracts = ["NeuronLab", "GenomRarity", "SuccessRate"];
   
   for (let i = 0; i < contracts.length; i++) {
     const name = contracts[i];
