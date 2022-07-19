@@ -31,3 +31,5 @@ npx hardhat verify --network testnet 0xe6a04f569843069B6eC37bB7515C806Fb2D6EAf3 
 ```
 
 
+Copyright © 2022 Redshift Game Studios Pte. Ltd.
+ All rights reserved.
